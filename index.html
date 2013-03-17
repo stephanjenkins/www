@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hello World</title>
+    </head>
+    <body>
+
+        <div class="login">
+            <h1>Please Login</h1>
+            <div>
+                <input id="txtUsername" type="text"     value="p@anderson.comx">
+                <input id="txtPassword" type="password" value="password">
+                <input id="btnLogin"    type="button"   value="login">
+<!--                 <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+ -->            </div>
+        </div>
+
+
+        <script type="text/javascript" src="cordova-2.5.0.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript">
+            //app.initialize();
+        </script>
+
+        <script type="text/javascript">
+            document.addEventListener("deviceready", onDeviceReady, false);
+
+            function onDeviceReady()
+            {
+                console.log('device is ready');
+                var serverRoot    = "https://api.zenplanner.com/zenplanner/api/3/remoteClient.cfc";  // PRODUCTION
+                var url = serverRoot + '?returnformat=json&method=login';
+
+
+                $("#btnLogin").click(function(){
+                    console.log('Sending Request....');
+                    var username = $.trim($('#txtUsername').val());
+                    var password = $.trim($('#txtPassword').val());
+                    
+                    if (username.length > 0 && password.length > 0) {
+                        // Build the auth account request object.
+                        var requestObj = {
+                            'username':username,
+                            'password':password,
+                            'deviceId':getDeviceId(),
+                            'apiToken':getAPIToken()
+                        };
+
+                        for (var field in requestObj)
+                        {
+                            //console.log(requestObj[field]);
+                             url += '&' + field + '=' + encodeURIComponent(requestObj[field]);
+                        }
+                        requestLogin(url);
+                    } 
+                });
+            }
+
+            function requestLogin(encURL)
+            {
+                var request = $.ajax({  
+                    type: "GET",  
+                    url: encURL,  
+                    success: function(data) {  
+                        requestSuccess(data); 
+                    },  
+                    error: function() {  
+                        requestFailed();
+                    }
+                });  
+            }
+
+            function requestSuccess(data)
+            {
+                var result = JSON.parse(data);
+                console.log(data);
+                if(result.SUCCESS == true)
+                {
+                    //alert('Login Successful');
+                    var ref = window.open('http://foobar.zenplanner.local/zenplanner/portal/calendar.cfm', '_self', 'location=yes,enableViewportScale=yes');
+                    ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
+                    ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
+                    ref.addEventListener('exit', function() { alert(event.type); });
+
+                }
+                else{
+
+                    message = result.MESSAGE + '\n' + result.DETAIL;
+                    navigator.notification.alert(result.DETAIL, null, result.MESSAGE, "Retry");
+                }
+            }
+
+            function requestFailed(){
+                navigator.notification.alert("There was an error connecting to the server.", null, "Error", "Retry");  
+            }
+
+            function getAPIToken()
+            {
+                apiToken = "FC154DE7-7EE2-48CA-B428-DD29F564B1F8";
+                return apiToken;
+            }
+
+            function getDeviceId()
+            {
+                var deviceID = device.uuid;
+                return deviceID;
+            }
+
+
+        </script>
+    </body>
+</html>
