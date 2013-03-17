@@ -99,11 +99,12 @@
 
             function requestSuccess(data)
             {
+                alert(JSON.stringify(data));
                 var result = JSON.parse(data);
+
                 console.log(data);
                 if(result.SUCCESS == true)
                 {
-                    //alert('Login Successful');
                     var ref = window.open('http://foobar.zenplanner.local/zenplanner/portal/calendar.cfm', '_self', 'location=yes,enableViewportScale=yes');
                     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
                     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
