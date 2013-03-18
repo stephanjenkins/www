@@ -21,8 +21,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="format-detection" content="telephone=no" />
-<!--         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
- -->        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=medium-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Hello World</title>
     </head>
@@ -34,13 +33,12 @@
                 <input id="txtUsername" type="text"     value="p@anderson.comx">
                 <input id="txtPassword" type="password" value="password">
                 <input id="btnLogin"    type="button"   value="login">
-<!--                 <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
- -->            </div>
+           </div>
         </div>
 
 
-        <script src="phonegap.js"></script>
+        <!---<script type="text/javascript" src="cordova-2.5.0.js"></script>-->
+        <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
         <script type="text/javascript">
@@ -52,7 +50,6 @@
 
             function onDeviceReady()
             {
-                alert('device is ready');
                 console.log('device is ready');
                 var serverRoot    = "https://api.zenplanner.com/zenplanner/api/3/remoteClient.cfc";  // PRODUCTION
                 var url = serverRoot + '?returnformat=json&method=login';
@@ -60,7 +57,6 @@
 
                 $("#btnLogin").click(function(){
                     console.log('Sending Request....');
-                    alert('clicked login btnLogin');
                     var username = $.trim($('#txtUsername').val());
                     var password = $.trim($('#txtPassword').val());
                     
@@ -78,8 +74,7 @@
                             //console.log(requestObj[field]);
                              url += '&' + field + '=' + encodeURIComponent(requestObj[field]);
                         }
-                        alert(url);
-                        //requestLogin(url);
+                        requestLogin(url);
                     } 
                 });
             }
@@ -100,13 +95,12 @@
 
             function requestSuccess(data)
             {
-                alert(JSON.stringify(data));
                 var result = JSON.parse(data);
-
                 console.log(data);
                 if(result.SUCCESS == true)
                 {
-                    var ref = window.open('http://foobar.zenplanner.local/zenplanner/portal/calendar.cfm', '_self', 'location=yes,enableViewportScale=yes');
+                    alert('Login Successful');
+                    var ref = window.open('http://www.google.com', '_self', 'location=yes,enableViewportScale=yes');
                     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
                     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
                     ref.addEventListener('exit', function() { alert(event.type); });
