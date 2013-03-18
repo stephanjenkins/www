@@ -22,81 +22,25 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        <!-- <link rel="stylesheet" type="text/css" href="css/index.css" /> -->
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-        <title>Zen Planner</title>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hello World</title>
     </head>
     <body>
-    <style type="text/css">
-body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    /*#2e78cc    #264577*/
-    background-color:#E4E4E4;
-    background-image:linear-gradient(top, #003366 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #003366 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #003366 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #2e78cc ),
-        color-stop(0.90, #264577)
-    );
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
-    width:100%;
-}
 
-    .login{
-        position: absolute;
-        top: 40%;
-        left: 26%;
-        text-align: center;
-    }
-    </style>
-        
-    <div style="position:absolute;top:20%;width:100%;text-align:center">
-        <div class="row-fluid">
-           <img src="assets/logo/logo_1200.png">
-        </div>
-        <div class="row-fluid">
-          <div class="span2"></div>
-          <div class="span8" style="text-align:center">
-            <!-- Start Login -->
+        <div class="login">
+            <h1>Please Login</h1>
             <div>
-              <div class="control-group">
-                <div class="controls">
-                  <input type="text" id="txtUsername" placeholder="Email">
-                </div>
-              </div>
-              <div class="control-group">                
-                <div class="controls">
-                  <input type="password" id="txtPassword" placeholder="Password">
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="controls">
-                  <button id="btnLogin" type="submit" class="btn-large btn-primary">Sign in</button>
-                </div>
-              </div>
-             </div>
-          </div>
-          <div class="span2"></div>
+                <input id="txtUsername" type="text"     value="stephan.w.jenkins@gmail.com">
+                <input id="txtPassword" type="password" value="password">
+                <input id="btnLogin"    type="button"   value="login">
+           </div>
         </div>
-    </div>
+
 
         <!---<script type="text/javascript" src="cordova-2.5.0.js"></script>-->
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.js"></script>
         <script type="text/javascript">
             //app.initialize();
         </script>
@@ -106,8 +50,6 @@ body {
 
             function onDeviceReady()
             {
-                $('#txtUsername').val('stephan.w.jenkins@gmail.com');
-                $('#txtPassword').val('password');
                 console.log('device is ready');
                 var serverRoot    = "http://stephan.zenplanner.com/zenplanner/api/3/remoteClient.cfc";  // PRODUCTION
                 
