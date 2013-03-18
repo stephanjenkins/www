@@ -97,12 +97,12 @@
 
             function requestSuccess(data)
             {
-                //var result = JSON.parse(data);
-                // console.log(data);
+                var result = JSON.parse(data);
+                console.log(data);
                 // alert(data);
                 if(result.SUCCESS == true)
                 {
-                    alert('Login Successful');
+                    //alert('Login Successful');
                     var ref = window.open('http://www.google.com', '_self', 'location=yes,enableViewportScale=yes');
                     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
                     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
@@ -110,7 +110,6 @@
 
                 }
                 else{
-
                     var message = result.MESSAGE + '\n' + result.DETAIL;
                     navigator.notification.alert(result.DETAIL, null, result.MESSAGE, "Retry");
                 }
