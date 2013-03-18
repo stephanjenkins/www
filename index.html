@@ -108,7 +108,7 @@
                 }
                 else{
 
-                    message = result.MESSAGE + '\n' + result.DETAIL;
+                    var message = result.MESSAGE + '\n' + result.DETAIL;
                     navigator.notification.alert(result.DETAIL, null, result.MESSAGE, "Retry");
                 }
             }
