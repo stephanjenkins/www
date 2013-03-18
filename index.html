@@ -52,10 +52,11 @@
             {
                 console.log('device is ready');
                 var serverRoot    = "https://api.zenplanner.com/zenplanner/api/3/remoteClient.cfc";  // PRODUCTION
-                var url = serverRoot + '?returnformat=json&method=login';
-
+                
 
                 $("#btnLogin").click(function(){
+                    var url = '';
+                    url = serverRoot + '?returnformat=json&method=login';
                     console.log('Sending Request....');
                     var username = $.trim($('#txtUsername').val());
                     var password = $.trim($('#txtPassword').val());
