@@ -109,7 +109,7 @@ body {
                 $('#txtUsername').val('stephan.w.jenkins@gmail.com');
                 $('#txtPassword').val('password');
                 console.log('device is ready');
-                var serverRoot    = "http://stephan.zenplanner.com/zenplanner/api/3/remoteClient.cfc";  // PRODUCTION
+                var serverRoot    = "http://john.zenplanner.com/zenplanner/api/3/remoteClient.cfc";  // PRODUCTION
                 
 
                 $("#btnLogin").click(function(){
@@ -157,11 +157,11 @@ body {
             {
                 var result = JSON.parse(data);
                 console.log(data);
-                // alert(data);
+                alert(data.PORTALDOMAIN);
                 if(result.SUCCESS == true)
                 {
                     //alert('Login Successful');
-                    var ref = window.open('http://www.google.com', '_self', 'location=yes,enableViewportScale=yes');
+                    var ref = window.open(data.PORTALDOMAIN, '_self', 'location=yes,enableViewportScale=yes');
                     ref.addEventListener('loadstart', function() { alert('start: ' + event.url); });
                     ref.addEventListener('loadstop', function() { alert('stop: ' + event.url); });
                     ref.addEventListener('exit', function() { alert(event.type); });
