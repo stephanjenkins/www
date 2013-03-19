@@ -41,8 +41,8 @@ body {
         linear,
         left top,
         left bottom,
-        color-stop(0, #2e78cc ),
-        color-stop(0.90, #264577)
+        color-stop(0, #264577 ),
+        color-stop(0.90, #2e78cc)
     );
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
@@ -82,8 +82,9 @@ body {
                 </div>
               </div>
               <div class="control-group">
-                <div class="controls">
+                <div id="loader" class="controls">
                   <button id="btnLogin" type="submit" class="btn-large btn-primary">Sign in</button>
+                  
                 </div>
               </div>
              </div>
@@ -106,8 +107,29 @@ body {
 
             function onDeviceReady()
             {
-                $('#txtUsername').val('stephan.w.jenkins@gmail.com');
-                $('#txtPassword').val('password');
+                $('#loader').append('<div id="ajaxBusy"><p><img src="assets/images/ajax-loader-white.gif"></p></div>');
+
+
+                $('#ajaxBusy').css({
+                    display:"none",
+                    margin:"0px",
+                    paddingLeft:"0px",
+                    paddingRight:"0px",
+                    paddingTop:"0px",
+                    paddingBottom:"0px",
+                    position:"absolute",
+                    width:"auto"
+                });
+
+                // Ajax activity indicator bound to ajax start/stop document events
+                $(document).ajaxStart(function(){ 
+                  $('#ajaxBusy').show(); 
+                }).ajaxStop(function(){ 
+                  $('#ajaxBusy').hide();
+                });            
+
+                //$('#txtUsername').val('stephan.w.jenkins@gmail.com');
+                //$('#txtPassword').val('password');
                 console.log('device is ready');
                 var serverRoot    = "http://john.zenplanner.com/zenplanner/api/3/remoteClient.cfc";  // PRODUCTION
                 
@@ -143,7 +165,8 @@ body {
             {
                 var request = $.ajax({  
                     type: "GET",  
-                    url: encURL,  
+                    url: encURL,
+                    timeout: 20000,  
                     success: function(data) {  
                         requestSuccess(data); 
                     },  
@@ -158,6 +181,7 @@ body {
                 var result = JSON.parse(data);
                 console.log(data);
                 alert(data.PORTALDOMAIN);
+                navigator.notification.alert(Domain, null, data.PORTALDOMAIN, "OK");
                 if(result.SUCCESS == true)
                 {
                     //alert('Login Successful');
